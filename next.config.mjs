@@ -4,10 +4,10 @@ const nextConfig = {
   swcMinify: true,
 
   // Add output export for static site generation
-  //output: 'export',
+  output: 'export',
 
   images: {
-    domains: ['autokeyz.co.uk'],
+    domains: ['autokeyz.co.uk', "d32fkr3mt63h38.cloudfront.net"],
     formats: ['image/avif', 'image/webp'],
     unoptimized: false,
   },
