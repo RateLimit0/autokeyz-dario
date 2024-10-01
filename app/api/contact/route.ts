@@ -1,11 +1,19 @@
-// app/api/contact/route.ts
-
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import nodemailer from 'nodemailer';
-import { z } from 'zod';
+
+// Fetch environment variables directly from Lambda
+const secretArn = process.env.SECRET_ARN;
+const smtpHost = process.env.SMTP_HOST;
+const smtpPort = process.env.SMTP_PORT;
+const smtpUser = process.env.SMTP_USER;
+const smtpPass = process.env.SMTP_PASS;
+const emailUser = process.env.EMAIL_USER;
+const contactEmail = process.env.CONTACT_EMAIL;
 
 // Define the validation schema using Zod
+import { z } from 'zod';
+
 const contactSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   phoneNumber: z.string().min(1, 'Phone number is required'),
@@ -14,81 +22,52 @@ const contactSchema = z.object({
   vehicleModel: z.string().min(1, 'Vehicle model is required'),
   vehicleYear: z.string().min(1, 'Vehicle year is required'),
   message: z.string().optional(),
-  isVehicleLocked: z.enum(['Yes', 'No']).refine(val => ['Yes', 'No'].includes(val), {
-    message: 'Please select if the vehicle is locked',
-  }),
-  doesVehicleRunAndDrive: z.enum(['Yes', 'No']).refine(val => ['Yes', 'No'].includes(val), {
-    message: 'Please select if the vehicle runs and drives',
-  }),
+  isVehicleLocked: z.enum(['Yes', 'No']),
+  doesVehicleRunAndDrive: z.enum(['Yes', 'No']),
 });
-
-
-type ContactFormData = z.infer<typeof contactSchema>;
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    console.log('Received contact form data:', body);
 
     // Validate the incoming data
     const parsedData = contactSchema.safeParse(body);
-
     if (!parsedData.success) {
       const errors = parsedData.error.errors.map(err => err.message).join(', ');
-      console.error('Validation errors:', errors);
       return NextResponse.json(
         { success: false, error: errors },
         { status: 400 }
       );
     }
 
-    const data: ContactFormData = parsedData.data;
-    console.log('Validated data:', data);
-
-    // Create Nodemailer transporter using Amazon SES SMTP credentials
+    // Use the environment variables in your Nodemailer configuration
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: Number(process.env.SMTP_PORT) === 465, // true for port 465, false for other ports
+      host: smtpHost,
+      port: Number(smtpPort),
+      secure: Number(smtpPort) === 465, // true for port 465, false for other ports
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: smtpUser,
+        pass: smtpPass,
       },
     });
 
-    // Verify SMTP connection configuration
-    try {
-      await transporter.verify();
-      console.log('SMTP connection verified successfully.');
-    } catch (smtpError) {
-      console.error('SMTP verification failed:', smtpError);
-      return NextResponse.json(
-        { success: false, error: 'SMTP configuration error.' },
-        { status: 500 }
-      );
-    }
-
-    // Define email options
     const mailOptions = {
-      from: process.env.EMAIL_USER, // Sender address (must be verified in SES)
-      to: process.env.CONTACT_EMAIL, // Receiver address
+      from: emailUser, // Sender address (must be verified in SES or your SMTP service)
+      to: contactEmail, // Receiver address
       subject: '⚠️ New Job ⚠️',
-      text: `Name: ${data.name}
-Email: ${data.email}
-Post Code: ${data.postCode}
-Phone Number: ${data.phoneNumber}
-Vehicle Model: ${data.vehicleModel}
-Vehicle Year: ${data.vehicleYear}
-Is Vehicle Locked?: ${data.isVehicleLocked}
-Does Vehicle Run And Drive?: ${data.doesVehicleRunAndDrive}
-Message: ${data.message || 'N/A'}`
-      // Optionally, add HTML version for better formatting
-      // html: `<p>Name: ${data.name}</p><p>Email: ${data.email}</p>...`
+      text: `Name: ${parsedData.data.name}
+      Email: ${parsedData.data.email}
+      Post Code: ${parsedData.data.postCode}
+      Phone Number: ${parsedData.data.phoneNumber}
+      Vehicle Model: ${parsedData.data.vehicleModel}
+      Vehicle Year: ${parsedData.data.vehicleYear}
+      Is Vehicle Locked?: ${parsedData.data.isVehicleLocked}
+      Does Vehicle Run And Drive?: ${parsedData.data.doesVehicleRunAndDrive}
+      Message: ${parsedData.data.message || 'N/A'}`
     };
 
     // Send the email
     const result = await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully:', result);
 
     // Respond back to the frontend
     return NextResponse.json(

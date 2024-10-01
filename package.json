@@ -12,6 +12,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.662.0",
     "cors": "^2.8.5",
     "critters": "^0.0.24",
     "dotenv": "^16.4.5",
