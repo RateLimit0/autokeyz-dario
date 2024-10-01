@@ -6,19 +6,24 @@ import nodemailer from 'nodemailer';
 import { z } from 'zod';
 
 // Define the validation schema using Zod
-const ContactFormSchema = z.object({
+const contactSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   phoneNumber: z.string().min(1, 'Phone number is required'),
   email: z.string().email('Invalid email address'),
-  postCode: z.string().min(1, 'Postcode is required'),
+  postCode: z.string().min(1, 'Post code is required'),
   vehicleModel: z.string().min(1, 'Vehicle model is required'),
-  vehicleYear: z.string().min(1, 'Vehicle year is required'), // Updated field
-  message: z.string().optional(), // Made optional as per requirement
-  isVehicleLocked: z.enum(['Yes', 'No'], 'Please select if the vehicle is locked'),
-  doesVehicleRunAndDrive: z.enum(['Yes', 'No'], 'Please select if the vehicle runs and drives')
+  vehicleYear: z.string().min(1, 'Vehicle year is required'),
+  message: z.string().optional(),
+  isVehicleLocked: z.enum(['Yes', 'No']).refine(val => ['Yes', 'No'].includes(val), {
+    message: 'Please select if the vehicle is locked',
+  }),
+  doesVehicleRunAndDrive: z.enum(['Yes', 'No']).refine(val => ['Yes', 'No'].includes(val), {
+    message: 'Please select if the vehicle runs and drives',
+  }),
 });
 
-type ContactFormData = z.infer<typeof ContactFormSchema>;
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 export async function POST(request: NextRequest) {
   try {
@@ -26,7 +31,7 @@ export async function POST(request: NextRequest) {
     console.log('Received contact form data:', body);
 
     // Validate the incoming data
-    const parsedData = ContactFormSchema.safeParse(body);
+    const parsedData = contactSchema.safeParse(body);
 
     if (!parsedData.success) {
       const errors = parsedData.error.errors.map(err => err.message).join(', ');
