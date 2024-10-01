@@ -5,7 +5,7 @@
   "scripts": {
     "start-server": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\"}\" server.ts",
     "start-dev": "concurrently \"npm run dev\" \"npm run start-server\"",
-    "dev": "next dev -H 127.0.0.1",
+    "dev": "next dev -H 192.168.0.96",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -16,7 +16,7 @@
     "critters": "^0.0.24",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "next": "14.1.4",
+    "next": "^14.2.13",
     "node": "^18.20.0",
     "nodemailer": "^6.9.13",
     "react": "^18",

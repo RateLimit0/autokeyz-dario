@@ -152,7 +152,7 @@ const HomePage: React.FC = () => {
             {/* Right Column for Image */}
             <div className="w-full lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
               <Image
-                src="/images/carkeyporsche.png"
+                src="/images/pepskey2.png"
                 alt="Jaguar Land Rover Car Key Replacement"
                 width={400}
                 height={300}
