@@ -1,6 +1,7 @@
 // components/ContactForm.tsx
 
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import Image from 'next/image';
 
 interface FormData {
   name: string;
@@ -8,7 +9,7 @@ interface FormData {
   email: string;
   postCode: string;
   vehicleModel: string;
-  vehicleYear: string; // Changed from vehicleRegistration to vehicleYear
+  vehicleYear: string;
   message: string;
   isVehicleLocked: string;
   doesVehicleRunAndDrive: string;
@@ -21,7 +22,7 @@ const ContactForm: React.FC = () => {
     email: '',
     postCode: '',
     vehicleModel: '',
-    vehicleYear: '', // Updated field
+    vehicleYear: '',
     message: '',
     isVehicleLocked: '',
     doesVehicleRunAndDrive: ''
@@ -60,25 +61,37 @@ const ContactForm: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // Handler to set 'Yes' or 'No' for boolean fields
+  const handleBooleanClick = (field: 'isVehicleLocked' | 'doesVehicleRunAndDrive', value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
   // Handler to submit the form
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Form submission initiated');
-    setSubmitStatus(null); // Reset status on new submission
-    setIsSubmitting(true); // Indicate form submission in progress
+    setSubmitStatus(null);
+    setIsSubmitting(true);
     try {
-      console.log('Sending fetch request to /api/contact');
-      const response = await fetch('/api/contact', { // Use relative path
+      const response = await fetch('https://formspree.io/f/mgveelpe', { // Replace with your Formspree endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          name: formData.name,
+          phoneNumber: formData.phoneNumber,
+          _replyto: formData.email, // Correctly map email to _replyto
+          postCode: formData.postCode,
+          vehicleModel: formData.vehicleModel,
+          vehicleYear: formData.vehicleYear,
+          message: formData.message,
+          isVehicleLocked: formData.isVehicleLocked,
+          doesVehicleRunAndDrive: formData.doesVehicleRunAndDrive
+        })
       });
-      console.log('Fetch response received:', response);
+
       if (response.ok) {
-        const result = await response.json();
-        console.log('Email sent successfully:', result);
         setSubmitStatus('Message sent successfully!');
         // Reset the form after successful submission
         setFormData({
@@ -94,14 +107,13 @@ const ContactForm: React.FC = () => {
         });
       } else {
         const errorData = await response.json();
-        console.log('Error response from server:', errorData);
-        setSubmitStatus(`Error: ${errorData.error || 'Failed to send message.'}`);
+        setSubmitStatus(errorData.error || 'Failed to send message.');
       }
     } catch (error) {
       console.error('Error during form submission:', error);
       setSubmitStatus('Error sending message.');
     } finally {
-      setIsSubmitting(false); // Reset submitting state
+      setIsSubmitting(false);
     }
   };
 
@@ -124,12 +136,24 @@ const ContactForm: React.FC = () => {
             rel="noopener noreferrer"
             className="bg-green-500 flex items-center justify-center space-x-2 py-2 px-4 rounded-full hover:bg-green-600 transition-colors"
           >
-            <img src="/images/whatsapp-icon.png" alt="WhatsApp" className="w-6 h-6" />
+            <Image 
+              src="https://images.autokeyz.co.uk/images/whatsapp-icon.png"
+              alt="WhatsApp"
+              width={24}
+              height={24}
+            />
             <span>WhatsApp Us</span>
           </a>
           {/* Lazy loading the image for performance */}
           <div className="mt-8">
-            <img src="/images/getintouch.jpeg" alt="Contact Us" className="rounded-lg shadow-lg max-w-full h-auto" loading="lazy" />
+            <Image 
+              src="https://images.autokeyz.co.uk/images/getintouch.png"
+              alt="Contact Us" 
+              className="rounded-lg shadow-lg max-w-full h-auto" 
+              width={600}
+              height={400}
+              loading="lazy" 
+            />
           </div>
         </div>
         {/* Form Section */}
@@ -156,7 +180,7 @@ const ContactForm: React.FC = () => {
             />
             <input
               type="email"
-              name="email"
+              name="email" // Changed from _replyto to email
               placeholder="Email *"
               required
               value={formData.email}
@@ -209,14 +233,14 @@ const ContactForm: React.FC = () => {
                 <button
                   type="button"
                   className={`py-2 px-4 rounded-full ${formData.isVehicleLocked === 'Yes' ? 'bg-green-500 text-white' : 'bg-gray-300 hover:bg-green-500 transition-colors'}`}
-                  onClick={() => setFormData({ ...formData, isVehicleLocked: 'Yes' })}
+                  onClick={() => handleBooleanClick('isVehicleLocked', 'Yes')}
                 >
                   Yes
                 </button>
                 <button
                   type="button"
                   className={`py-2 px-4 rounded-full ${formData.isVehicleLocked === 'No' ? 'bg-red-500 text-white' : 'bg-gray-300 hover:bg-red-500 transition-colors'}`}
-                  onClick={() => setFormData({ ...formData, isVehicleLocked: 'No' })}
+                  onClick={() => handleBooleanClick('isVehicleLocked', 'No')}
                 >
                   No
                 </button>
@@ -228,14 +252,14 @@ const ContactForm: React.FC = () => {
                 <button
                   type="button"
                   className={`py-2 px-4 rounded-full ${formData.doesVehicleRunAndDrive === 'Yes' ? 'bg-green-500 text-white' : 'bg-gray-300 hover:bg-green-500 transition-colors'}`}
-                  onClick={() => setFormData({ ...formData, doesVehicleRunAndDrive: 'Yes' })}
+                  onClick={() => handleBooleanClick('doesVehicleRunAndDrive', 'Yes')}
                 >
                   Yes
                 </button>
                 <button
                   type="button"
                   className={`py-2 px-4 rounded-full ${formData.doesVehicleRunAndDrive === 'No' ? 'bg-red-500 text-white' : 'bg-gray-300 hover:bg-red-500 transition-colors'}`}
-                  onClick={() => setFormData({ ...formData, doesVehicleRunAndDrive: 'No' })}
+                  onClick={() => handleBooleanClick('doesVehicleRunAndDrive', 'No')}
                 >
                   No
                 </button>

@@ -14,6 +14,8 @@ const ContactForm = dynamic(() => import("../components/ContactForm"), { ssr: fa
 const AboutUs = dynamic(() => import("../components/AboutUs"), { ssr: false });
 const OurBrands = dynamic(() => import("../components/OurBrands"), { ssr: false });
 const Parallax = dynamic(() => import("@/components/Parallax"), { ssr: false });
+const Reviews = dynamic(() => import("@/components/Reviews"), { ssr: false });
+
 
 const HomePage: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -98,7 +100,7 @@ const HomePage: React.FC = () => {
         <div
           className="relative min-h-screen flex flex-col justify-center items-center lg:flex-row p-8 md:p-12 lg:p-16"
           style={{
-            backgroundImage: "url('/images/RRS_25MY_STEALTH_040424_02.jpg')",
+            backgroundImage: "url('https://images.autokeyz.co.uk/images/RRS_25MY_STEALTH_040424_02.jpg')",
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
@@ -151,11 +153,11 @@ const HomePage: React.FC = () => {
 
             {/* Right Column for Image */}
             <div className="w-full lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
-              <img
-                src="/images/pepskey2.png"
+              <Image
+                src="https://images.autokeyz.co.uk/images/pepskey2.png"
                 alt="Jaguar Land Rover Car Key Replacement"
-                width="400"
-                height="300"
+                width={400}
+                height={300}
                 className="w-full max-w-xs md:max-w-md h-auto object-cover"
                 loading="lazy" // Lazy load image for performance optimization
               />
@@ -178,6 +180,9 @@ const HomePage: React.FC = () => {
         </section>
         <section id="pricing" className="pt-8">
           <Pricing />
+        </section>
+        <section id="reviews">
+          <Reviews />
         </section>
         <section id="contact">
           <ContactForm />

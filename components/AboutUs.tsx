@@ -60,13 +60,13 @@ const AboutUs: React.FC = () => {
           </div>
           {/* Image Section */}
           <div className="w-full lg:w-1/2 flex justify-center">
-            <img
-              src="/images/about.jpeg" // Assuming the image is in the public folder or hosted correctly
+            <Image
+              src="https://images.autokeyz.co.uk/images/about.png"
               alt="AutoKeyz Team at Work"
               className="rounded-lg shadow-lg max-w-full h-auto"
-              width="600" // Specify dimensions to optimize the rendering
-              height="400"
-              loading="lazy" // Lazy load the image for better performance
+              width={600} // Intrinsic width in pixels
+              height={400} // Intrinsic height in pixels
+              layout="responsive" // Makes the image responsive
             />
           </div>
         </div>

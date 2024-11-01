@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useMemo } from 'react';
+import Image from 'next/image';
 
 const OurBrands = () => {
   const brands = useMemo(() => [
-    { src: 'images/landrover-logo.png', alt: 'Land Rover', name: 'Land Rover' },
-    { src: 'images/rangerover-logo.png', alt: 'Range Rover', name: 'Range Rover' },
-    { src: 'images/jaguar-logo.png', alt: 'Jaguar', name: 'Jaguar' },
-    { src: 'images/porsche-logo.png', alt: 'Porsche', name: 'Porsche' }
+    { src: 'https://images.autokeyz.co.uk/images/landrover-logo.png', alt: 'Land Rover', name: 'Land Rover' },
+    { src: 'https://images.autokeyz.co.uk/images/rangerover-logo.png', alt: 'Range Rover', name: 'Range Rover' },
+    { src: 'https://images.autokeyz.co.uk/images/jaguar-logo.png', alt: 'Jaguar', name: 'Jaguar' },
+    { src: 'https://images.autokeyz.co.uk/images/porsche-logo.png', alt: 'Porsche', name: 'Porsche' }
   ], []);
 
   const [currentBrandIndex, setCurrentBrandIndex] = useState(0);
@@ -26,7 +27,6 @@ const OurBrands = () => {
     "logo": "https://www.autokeyz.com/images/logo.png",
     "sameAs": [
       "https://www.facebook.com/autokeyz",
-      "https://twitter.com/autokeyz",
       "https://www.instagram.com/autokeyz"
     ],
     "brand": brands.map(brand => ({

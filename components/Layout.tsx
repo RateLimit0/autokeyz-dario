@@ -1,4 +1,5 @@
 import React, { useState, useCallback, memo, ReactNode } from 'react';
+import Image from 'next/image';
 
 // Interface for props
 interface LayoutProps {
@@ -46,6 +47,7 @@ const Layout = memo<LayoutProps>(({ children }) => {
           <nav className={`${isMenuOpen ? 'flex' : 'hidden'} md:flex flex-col mr-20 gap-5 md:flex-row absolute md:relative inset-x-0 top-full md:top-auto bg-gray-800 md:bg-transparent w-full md:w-auto p-4 md:p-0 z-50`}>
             <button className="py-2 px-4 hover:bg-gray-700 md:text-white md:p-2 text-left" onClick={() => handleScroll('services')}>Our Services</button>
             <button className="py-2 px-4 hover:bg-gray-700 md:text-white md:p-2 text-left" onClick={() => handleScroll('pricing')}>Pricing</button>
+            <button className="py-2 px-4 hover:bg-gray-700 md:text-white md:p-2 text-left" onClick={() => handleScroll('reviews')}>Reviews</button>
             <button className="py-2 px-4 hover:bg-gray-700 md:text-white md:p-2 text-left" onClick={() => handleScroll('contact')}>Get In Touch</button>
           </nav>
         </div>

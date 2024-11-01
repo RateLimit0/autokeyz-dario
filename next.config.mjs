@@ -3,13 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
 
-  // Add output export for static site generation
   output: 'export',
 
   images: {
-    domains: ['autokeyz.co.uk', "d32fkr3mt63h38.cloudfront.net"],
-    formats: ['image/avif', 'image/webp'],
-    unoptimized: false,
+    domains: ["images.autokeyz.co.uk"],
+    unoptimized: true,
   },
 
   async headers() {
@@ -24,7 +22,7 @@ const nextConfig = {
           {
             key: 'Content-Security-Policy',
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://trusted-scripts.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; media-src 'self'; connect-src 'self' https://trusted-api.com; font-src 'self';",
+              "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; media-src 'self'; connect-src 'self'; font-src 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests;",
           },
           {
             key: 'X-Content-Type-Options',

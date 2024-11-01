@@ -1,6 +1,9 @@
+// app/layout.tsx
+
 import '../app/globals.css';
 import React from 'react';
 import Head from 'next/head';
+import Script from 'next/script';
 
 export const metadata = {
   title: 'Auto Keyz - Jaguar Land Rover Key Replacements',
@@ -14,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <Head>
-        {/* Use metadata API provided by Next.js */}
+        {/* Metadata */}
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
