@@ -28,6 +28,6 @@ User-agent: AhrefsBot
 Disallow: /
 
 User-agent: SemrushBot
-Disallow: /
+Allow: /
 
 Crawl-delay: 10
