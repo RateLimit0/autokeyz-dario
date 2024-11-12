@@ -38,24 +38,17 @@ const AboutUs: React.FC = () => {
             <h2 className="text-4xl font-bold text-gray-800 mb-4">About AutoKeyz</h2>
             <h3 className="text-2xl font-semibold text-gray-600 mb-6">Who We Are</h3>
             <p className="text-gray-700 mb-4">
-              At <strong>AutoKeyz</strong>, we are dedicated to providing exceptional <strong>automotive key services</strong>. With years of experience in the industry,
-              our team of professional locksmiths is committed to ensuring your vehicle's security and your peace of mind. Whether you've lost
-              your car keys or need a spare, we've got you covered.
+              At AutoKeyz, we lead in superior car key replacement services across the UK, specialising in Jaguar key replacement and Range Rover key replacement. Our team of professionals has years of experience dedicated to delivering the best service, providing you with true peace of mind.
             </p>
             <p className="text-gray-700 mb-4">
-              We pride ourselves on our prompt and reliable service, utilizing the latest technology and equipment to handle all types of automotive
-              key issues. Our services include <strong>key replacement</strong>, <strong>keyless entry system installation</strong>, and <strong>emergency lockout assistance</strong>. Our mission
-              is to deliver high-quality solutions quickly and efficiently.
+              We understand the significance of swift, reliable service, especially when you need an emergency car key replacement or car key fob battery replacement. Whether you're located in urban hubs such as London, Bristol, or Manchester, we can ensure prompt service. We handle everything from keyless entry systems to lost car key replacement. Our mission is to deliver high-quality solutions quickly and efficiently.
             </p>
             <h3 className="text-2xl font-semibold text-gray-600 mb-6">Our Commitment</h3>
             <p className="text-gray-700 mb-4">
-              Customer satisfaction is our top priority. We understand the inconvenience of being locked out of your vehicle or losing your keys,
-              which is why we strive to provide fast, friendly, and effective service. Our team is available around the clock to assist you in any
-              emergency situation.
+              Customer satisfaction is a key objective at AutoKeyz. We know that getting locked out or needing to replace your Jaguar or Range Rover key can be extremely frustrating. In light of this, we also offer emergency locksmith assistance and callouts.
             </p>
             <p className="text-gray-700">
-              Trust <strong>AutoKeyz</strong> for all your <strong>automotive key needs</strong>. We are here to ensure your vehicle's security and get you back on the road
-              as quickly as possible. <a href="#contact" className="text-blue-600 underline">Contact us today</a> to learn more about our services or to schedule an appointment.
+              AutoKeyz has your back. Put your trust in us, and we won’t fail you. When it comes to Jaguar and Range Rover auto key needs, we are your one-stop shop. <a href="#contact" className="text-blue-600 underline">Contact us today</a> to learn more about our car key services.
             </p>
           </div>
           {/* Image Section */}
