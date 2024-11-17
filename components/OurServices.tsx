@@ -5,19 +5,19 @@ const OurServices = React.memo(() => {
   const services = useMemo(() => [
     {
       name: "Spare Keys",
-      description: "Including mobile visit, spare car key supplied and programmed, with a 12-month guarantee.",
+      description: "Mobile service for spare keys, supplied and programmed with a 12-month guarantee.",
       icon: <FaKey />,
-      keywords: "spare keys, car key programming, mobile car key service, 12-month guarantee",
+      keywords: "spare keys, mobile car key service, car key replacement, car key programming, professional key services, 12-month guarantee",
     },
     {
       name: "All Keys Lost",
-      description: "Call out service, vehicle opening, new car key supplied and programmed, with a 12-month guarantee.",
+      description: "Emergency call-out for vehicle access, new keys supplied, and programmed with a 12-month guarantee.",
       icon: <FaLockOpen />,
-      keywords: "all keys lost, emergency car key replacement, vehicle opening, 12-month guarantee",
+      keywords: "emergency car key replacement, emergency key fob replacement, vehicle opening, Car Keys lost",
     },
     {
       name: "Keyless Vehicle Module",
-      description: "Supply and replacement of KVM, including new keys supplied and programmed.",
+      description: "Replacement and programming of KVM modules for seamless keyless entry.",
       icon: <FaCar />,
       keywords: "keyless vehicle module, KVM replacement, car key programming, keyless entry system",
     },
@@ -25,7 +25,7 @@ const OurServices = React.memo(() => {
       name: "Emergency Call Out",
       description: "Emergency service for vehicle opening and new car keys supplied and programmed.",
       icon: <FaClock />,
-      keywords: "emergency call out, car lockout service, emergency car key replacement, vehicle opening",
+      keywords: "emergency call out, lost car key emergency call out, emergency car key replacement, urgent key replacement service, 24/7 car key emergency call out",
     },
   ], []);
 
