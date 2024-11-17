@@ -47,9 +47,7 @@ const Parallax: React.FC = () => {
       <div className="relative w-full sm:w-2/3 lg:w-1/4 h-full bg-white bg-opacity-75 p-6 flex flex-col justify-center shadow-lg text-gray-900">
         <h2 className="text-3xl font-bold mb-4">Why Choose Us</h2>
         <p className="text-lg">
-          At <strong>AutoKeyz</strong>, we pride ourselves on delivering exceptional service and reliability. With years of experience and state-of-the-art 
-          equipment, we ensure your automotive key needs are met swiftly and efficiently. Choose us for our expertise, commitment to quality, 
-          and customer-focused approach.
+           At <strong>AutoKeyz</strong>, we offer expert car key replacement services with years of experience and cutting-edge technology. Whether you need a spare key, emergency car key replacement, or a keyless vehicle module replacement, we provide fast, reliable, and professional solutions. Our team is committed to delivering high-quality service, ensuring your car key needs are met with precision, all while offering a customer-focused approach and 12-month guarantees.
         </p>
       </div>
       
